@@ -1,0 +1,44 @@
+@import 'normalize.css';
+@import url('https://fonts.cdnfonts.com/css/proxima-nova-2');
+:root {
+    //color
+    --primary: rgba(255, 59, 92, 1);
+    --black: #000;
+    --white: #fff;
+    --text-color: #333;
+    --border-color-main: 22, 24, 35;
+
+    //Default layout
+    --default-layout-header-height: 60px;
+    --default-layout-width: 1300px;
+    --default-layout-sidebar-width: 356px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Proxima Nova', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+
+button,
+input,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+
+a[href] {
+    text-decoration: none;
+    color: var(--text-color);
+}
