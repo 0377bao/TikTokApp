@@ -17,8 +17,32 @@
     justify-content: start;
     border-radius: 0;
     padding: 11px 16px;
+    height: var(--default-layout-menuitem-height);
 
     &:hover {
         background-color: rgba($color: var(--border-color-main), $alpha: 0.05);
     }
+}
+
+// Header menu
+.header {
+    position: relative;
+    height: 50px;
+    margin-top: -8px;
+}
+
+.header-btn {
+    height: 100%;
+    width: 50px;
+    min-width: 50px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
 }
