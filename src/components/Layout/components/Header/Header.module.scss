@@ -19,6 +19,7 @@
 }
 
 .logo {
+    cursor: pointer;
 }
 
 .search,
@@ -123,10 +124,33 @@
     }
 }
 
+// Action
+.actions {
+    display: flex;
+    align-items: center;
+}
+
+.action-btn {
+    background-color: transparent;
+    font-size: 2rem;
+    color: #161823;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+
 .more-icon {
     font-size: 2rem;
     margin-left: 28px;
     background-color: transparent;
     padding: 4px 8px;
     cursor: pointer;
+}
+
+.action-avt {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    margin-left: 12px;
 }

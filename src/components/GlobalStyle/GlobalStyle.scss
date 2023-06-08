@@ -5,7 +5,7 @@
     --primary: rgba(255, 59, 92, 1);
     --black: #000;
     --white: #fff;
-    --text-color: #333;
+    --text-color: #161823;
     --border-color-main: 22, 24, 35;
 
     //Default layout
@@ -42,4 +42,24 @@ input,
 a[href] {
     text-decoration: none;
     color: var(--text-color);
+}
+// custom tooltip
+body {
+    .tippy-box {
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.4rem;
+        line-height: 22px;
+        background-color: rgba(84, 84, 84, 0.92);
+    }
+
+    .tippy-arrow {
+        &::before {
+            border-bottom-color: rgba(84, 84, 84, 0.92) !important;
+        }
+    }
+
+    .tippy-content {
+        padding: 8px 9px;
+    }
 }
