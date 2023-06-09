@@ -11,6 +11,7 @@ import styles from './Search.module.scss';
 import { Wrapper as PoperWrapper } from '~/components/Popper';
 import { useEffect, useRef, useState } from 'react';
 import { SearchIcon } from '~/components/Icons';
+import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
@@ -20,28 +21,27 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [showLoading, setShowLoading] = useState(false);
 
+    const debounce = useDebounce(searchValue, 500);
     const searchElement = useRef();
 
     useEffect(() => {
-        let idTimeout;
-        if (!!searchValue.trim()) {
-            idTimeout = setTimeout(() => {
-                setShowLoading(true);
-                fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
-                    .then((res) => res.json())
-                    .then((json) => {
-                        setSearchResult(json.data);
-                        setShowLoading(false);
-                    })
-                    .catch(() => {
-                        setShowLoading(false);
-                    });
-            }, 500);
-        } else {
+        if (!debounce.trim()) {
             setSearchResult([]);
+            return;
         }
-        return () => clearTimeout(idTimeout);
-    }, [searchValue]);
+
+        setShowLoading(true);
+
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`)
+            .then((res) => res.json())
+            .then((json) => {
+                setSearchResult(json.data);
+                setShowLoading(false);
+            })
+            .catch(() => {
+                setShowLoading(false);
+            });
+    }, [debounce]);
 
     const handleClear = () => {
         setSearchValue('');
