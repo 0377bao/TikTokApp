@@ -1,5 +1,4 @@
 @import 'normalize.css';
-@import url('https://fonts.cdnfonts.com/css/proxima-nova-2');
 :root {
     //color
     --primary: rgba(255, 59, 92, 1);
@@ -26,10 +25,32 @@ html {
 }
 
 body {
-    font-family: 'Proxima Nova', sans-serif;
+    font-family: 'ProximaNova', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+}
+
+// Custom font
+@font-face {
+    font-family: ProximaNova;
+    src: url(/assets/font/Proxima-Nova-Regular.woff2);
+    font-weight: 400;
+}
+@font-face {
+    font-family: ProximaNova;
+    src: url(/assets/font/ProximaNova-Semibold.woff2);
+    font-weight: 600;
+}
+@font-face {
+    font-family: ProximaNova;
+    src: url(/assets/font/Proxima-Nova-Bold.woff);
+    font-weight: 700;
+}
+@font-face {
+    font-family: Sofiapro;
+    src: url(/assets/font/sofiapro-bold.woff);
+    font-weight: 400;
 }
 
 button,

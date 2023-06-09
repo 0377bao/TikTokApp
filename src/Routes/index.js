@@ -6,7 +6,7 @@ import { HeaderOnly } from '~/components/Layout';
 const publicPages = [
     { path: '/', component: Home },
     { path: '/following', component: Following, layout: HeaderOnly },
-    { path: '/profile', component: Profile, layout: null },
+    { path: '/profile/:nickname', component: Profile, layout: HeaderOnly },
 ];
 
 const privatePages = [];
