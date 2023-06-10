@@ -3,7 +3,6 @@ import AccountItem from '~/components/AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
-import TippyTooltip from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 import { faSpinner, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
@@ -49,6 +48,13 @@ function Search() {
         searchElement.current.focus();
     };
 
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+    };
+
     const handleHideResult = () => setShowResult(false);
 
     return (
@@ -76,7 +82,7 @@ function Search() {
                     placeholder="Search account and videos"
                     spellCheck={false}
                     value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleChange}
                     onFocus={() => setShowResult(true)}
                 />
                 {!!searchValue && !showLoading && (
@@ -85,11 +91,9 @@ function Search() {
                     </button>
                 )}
                 {showLoading && <FontAwesomeIcon className={cx('spiner')} icon={faSpinner} />}
-                <TippyTooltip animation="scale" content="Tìm kiếm">
-                    <button className={cx('search-btn')}>
-                        <SearchIcon />
-                    </button>
-                </TippyTooltip>
+                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
+                    <SearchIcon />
+                </button>
             </div>
         </Tippy>
     );

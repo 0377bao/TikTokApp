@@ -19,6 +19,7 @@
 }
 
 .logo {
+    display: flex;
     cursor: pointer;
 }
 
@@ -29,6 +30,8 @@
 }
 
 .action-btn {
+    display: flex;
+    align-items: center;
     background-color: transparent;
     font-size: 2rem;
     color: #161823;
@@ -50,7 +53,7 @@
 
 .label-notify {
     color: rgb(255, 255, 255);
-    font-family: ProximaNova, sans-serif;
+    font-family: var(--font-familt);
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;

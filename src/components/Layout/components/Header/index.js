@@ -4,6 +4,7 @@ import TippyTooltip from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
@@ -23,6 +24,7 @@ import {
 } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
+import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
@@ -91,9 +93,9 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
+                <Link to={routes.root} className={cx('logo')}>
                     <img src={images.logo} alt="Tiktok" />
-                </div>
+                </Link>
 
                 <Search />
 
