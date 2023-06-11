@@ -58,44 +58,47 @@ function Search() {
     const handleHideResult = () => setShowResult(false);
 
     return (
-        <Tippy
-            // Có thể selec được items
-            interactive
-            // xét ẩn hiện của tippy
-            visible={searchResult.length > 0 && showResult}
-            // render ra component của phần tử hover
-            render={(attrs) => (
-                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                    <PoperWrapper>
-                        <h4 className={cx('search-title')}>Account</h4>
-                        {searchResult.map((item) => (
-                            <AccountItem data={item} key={item.id} />
-                        ))}
-                    </PoperWrapper>
-                </div>
-            )}
-            onClickOutside={handleHideResult}
-        >
-            <div className={cx('search')}>
-                <input
-                    ref={searchElement}
-                    placeholder="Search account and videos"
-                    spellCheck={false}
-                    value={searchValue}
-                    onChange={handleChange}
-                    onFocus={() => setShowResult(true)}
-                />
-                {!!searchValue && !showLoading && (
-                    <button className={cx('close')} onClick={handleClear}>
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
+        // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.
+        <div>
+            <Tippy
+                // Có thể selec được items
+                interactive
+                // xét ẩn hiện của tippy
+                visible={searchResult.length > 0 && showResult}
+                // render ra component của phần tử hover
+                render={(attrs) => (
+                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                        <PoperWrapper>
+                            <h4 className={cx('search-title')}>Account</h4>
+                            {searchResult.map((item) => (
+                                <AccountItem data={item} key={item.id} />
+                            ))}
+                        </PoperWrapper>
+                    </div>
                 )}
-                {showLoading && <FontAwesomeIcon className={cx('spiner')} icon={faSpinner} />}
-                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
-                    <SearchIcon />
-                </button>
-            </div>
-        </Tippy>
+                onClickOutside={handleHideResult}
+            >
+                <div className={cx('search')}>
+                    <input
+                        ref={searchElement}
+                        placeholder="Search account and videos"
+                        spellCheck={false}
+                        value={searchValue}
+                        onChange={handleChange}
+                        onFocus={() => setShowResult(true)}
+                    />
+                    {!!searchValue && !showLoading && (
+                        <button className={cx('close')} onClick={handleClear}>
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
+                    {showLoading && <FontAwesomeIcon className={cx('spiner')} icon={faSpinner} />}
+                    <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
+                        <SearchIcon />
+                    </button>
+                </div>
+            </Tippy>
+        </div>
     );
 }
 
