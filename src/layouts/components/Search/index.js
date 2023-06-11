@@ -7,7 +7,7 @@ import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 import { faSpinner, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
-import * as SearchServices from '~/apiServices/searchServices.js';
+import * as SearchService from '~/services/searchService';
 import styles from './Search.module.scss';
 import { Wrapper as PoperWrapper } from '~/components/Popper';
 import { SearchIcon } from '~/components/Icons';
@@ -33,7 +33,7 @@ function Search() {
         const fetchApi = async () => {
             setShowLoading(true);
 
-            const res = await SearchServices.Search(debounce);
+            const res = await SearchService.Search(debounce);
             setSearchResult(res.data);
 
             setShowLoading(false);
