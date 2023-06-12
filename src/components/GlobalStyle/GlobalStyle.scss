@@ -10,7 +10,7 @@
 
     //Default layout
     --default-layout-header-height: 60px;
-    --default-layout-width: 1300px;
+    --default-layout-width: 1150px;
     --default-layout-sidebar-width: 356px;
     --default-layout-menuitem-height: 42px;
 }
@@ -30,7 +30,7 @@ body {
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
-    overflow-y: overlay;
+    overflow-y: scroll;
 }
 
 //Scrollbar css

@@ -35,7 +35,7 @@
 }
 
 .primary {
-    color: var(--white);
+    color: var(--white) !important;
     background-color: var(--primary);
     border-color: var(--primary);
 
