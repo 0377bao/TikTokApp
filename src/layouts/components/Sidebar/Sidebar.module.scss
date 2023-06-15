@@ -1,5 +1,45 @@
 .wrapper {
+    position: fixed;
+    top: var(--default-layout-header-height);
+    left: calc((100% - var(--default-layout-width)) / 2);
+    bottom: 0;
     width: var(--default-layout-sidebar-width);
     padding: 20px 0 26px 8px;
     margin-left: -18px;
+    overflow-x: visible;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+
+    &::-webkit-scrollbar-thumb {
+        transition: background-color linear 1s;
+        background-color: transparent;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: rgba($color: var(--border-color-main), $alpha: 0.06);
+    }
+}
+
+.brand-info {
+    padding-top: 8px;
+    border-top: 1px solid #e3e3e4;
+
+    .brand-item {
+        color: rgba(22, 24, 35, 0.5);
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 17px;
+        display: inline-block;
+        margin-right: 6px;
+        margin-top: 5px;
+    }
+}
+
+.tiktok-brand {
+    color: rgba(22, 24, 35, 0.5);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    display: inline-block;
+    margin-right: 6px;
+    margin-top: 13px;
 }

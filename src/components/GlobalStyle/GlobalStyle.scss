@@ -7,6 +7,7 @@
     --text-color: #161823;
     --border-color-main: 22, 24, 35;
     --font-familt: 'ProximaNova', sans-serif;
+    --font-familt-support: 'Sofiapro', sans-serif;
 
     //Default layout
     --default-layout-header-height: 60px;
@@ -100,5 +101,15 @@ body {
 
     .tippy-content {
         padding: 8px 9px;
+    }
+
+    .contentHighlight {
+        font-weight: 600;
+        color: rgb(43, 93, 185);
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

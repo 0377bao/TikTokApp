@@ -1,0 +1,554 @@
+.wrapper {
+    display: flex;
+    padding: 20px 0;
+    color: var(--text-color);
+    max-width: 800px;
+    min-width: 500px;
+    max-height: calc(100vh - var(--default-layout-header-height));
+    border-bottom: 1px solid rgba($color: var(--border-color-main), $alpha: 0.1);
+    // scroll-snap-align: center;
+}
+
+// phần chứa avt
+.avatar {
+    .avt-img {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+    }
+}
+
+//Phần chứa content tên nhạc và video
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    overflow: hidden;
+}
+
+//Phần header chứa tên và nickname
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.des {
+    padding-right: 20px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.author {
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+
+    &:hover .nickname {
+        text-decoration: underline;
+    }
+}
+
+.nickname {
+    font-family: var(--font-familt-support);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.check {
+    margin-left: 4px;
+    font-size: 1.4rem;
+    color: rgb(32, 213, 236);
+}
+
+.fullname {
+    margin-left: 4px;
+    font-weight: 400;
+    font-size: 14px;
+    display: inline-block;
+    line-height: 28px;
+}
+
+.content-des {
+    position: relative;
+    font-size: 16px;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+
+    .content-des--more {
+        float: right;
+        clear: both;
+        position: absolute;
+        right: 0;
+        bottom: 0px;
+        -webkit-box-align: center;
+        padding: 3px 16px;
+        font-weight: 600;
+        background-color: var(--white);
+        display: none;
+    }
+
+    &.ismore {
+        max-height: 90px;
+    }
+
+    &.ismore .more {
+        display: block;
+    }
+
+    &.isless {
+        max-height: 180px;
+    }
+
+    &.isless .group-content {
+        max-height: 180px;
+        overflow-y: scroll;
+    }
+
+    &.isless .less {
+        display: block;
+    }
+}
+
+.capcut {
+    display: flex;
+    align-items: center;
+    height: 26px;
+    margin-top: 4px;
+
+    .capcut-logo {
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+    }
+
+    .capcut-content {
+        cursor: pointer;
+        font-weight: 600;
+        background-color: rgb(241, 241, 241);
+        padding-left: 8px;
+        padding-right: 8px;
+        border-radius: 2px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-left: 6px;
+    }
+
+    .capcut-content:hover {
+        text-decoration: underline;
+    }
+}
+
+.sound {
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    -webkit-transition: color 250ms;
+    transition: color 250ms;
+    text-decoration: none;
+
+    &:hover .name-sound {
+        text-decoration: underline;
+    }
+}
+
+.sound-icon {
+    margin-right: 4px;
+}
+
+.name-sound {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.button-btn {
+    margin-top: 7px;
+    padding: 4px 20px !important;
+}
+
+//Phafnaf body chứa video và các button actions
+.body {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.group-video {
+    position: relative;
+    max-height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+
+    &.ispause ~ .playicon {
+        display: block;
+    }
+
+    &.isplay ~ .pauseicon {
+        display: block;
+    }
+}
+
+.mutedicon,
+.pauseicon,
+.playicon {
+    padding: 8px;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.mutedicon {
+    right: 12px;
+    bottom: 26px;
+}
+
+.pauseicon,
+.playicon {
+    padding: 10px;
+    left: 12px;
+    bottom: 26px;
+}
+
+.pauseicon {
+    display: none;
+}
+
+.playicon {
+    display: none;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.action-btn {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+
+    & strong {
+        font-family: var(--font-familt);
+        color: rgba(22, 24, 35, 0.75);
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+    }
+
+    &.liked svg {
+        color: var(--primary);
+        animation: EffectLiked linear 0.8s;
+    }
+
+    &.favourited svg {
+        position: relative;
+        color: #face15;
+        transform-origin: 50% 0;
+        animation: EffectFavourited ease-in-out 0.4s;
+    }
+
+    &.favourited::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(calc(-50% - 8px));
+        width: 32px;
+        height: 32px;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        animation: EffectFavouritedBefore linear 0.4s forwards 0.16s;
+    }
+}
+
+@keyframes EffectLiked {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1.4);
+        color: var(--primary);
+    }
+    80% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes EffectFavourited {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.1, 0.6);
+    }
+    80% {
+        transform: scale(1.1, 1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes EffectFavouritedBefore {
+    0% {
+        border-color: #face15;
+        opacity: 1;
+        transform: translateY(calc(-50% - 8px)) scale(0);
+    }
+    100% {
+        border-color: #face15;
+        opacity: 0;
+        transform: translateY(calc(-50% - 8px)) scale(1);
+    }
+}
+
+.action-btn-icon {
+    position: relative;
+    margin: 8px 0 6px;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color: var(--border-color-main), $alpha: 0.06);
+    border-radius: 50%;
+}
+
+// Hiệu ứng cho phần thả like
+.itemEffectLike--red {
+    pointer-events: none;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--primary);
+}
+
+.itemEffectLike--red:nth-child(1) {
+    top: -2.5px;
+    left: calc(50% - 2.5px);
+    animation: ItemEffectLiked1 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked1 {
+    0% {
+        opacity: 0;
+        transform: translate(-100%, 100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(100%, 100%);
+    }
+}
+
+.itemEffectLike--red:nth-child(2) {
+    top: 50%;
+    right: -2.5px;
+    animation: ItemEffectLiked2 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked2 {
+    0% {
+        opacity: 0;
+        transform: translate(-100%, -100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-100%, 100%);
+    }
+}
+
+.itemEffectLike--red:nth-child(3) {
+    bottom: -2.5px;
+    left: calc(50% - 2.5px);
+    animation: ItemEffectLiked3 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked3 {
+    0% {
+        opacity: 0;
+        transform: translate(100%, -100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-100%, -100%);
+    }
+}
+
+.itemEffectLike--red:nth-child(4) {
+    top: 50%;
+    left: -2.5px;
+    animation: ItemEffectLiked4 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked4 {
+    0% {
+        opacity: 0;
+        transform: translate(100%, 100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(100%, -100%);
+    }
+}
+
+.itemEffectLike--blue {
+    pointer-events: none;
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgb(32, 213, 236);
+}
+
+.itemEffectLike--blue:nth-child(5) {
+    top: 25%;
+    left: 25%;
+    animation: ItemEffectLiked5 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked5 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 0;
+        left: 35%;
+    }
+}
+
+.itemEffectLike--blue:nth-child(6) {
+    top: 25%;
+    right: 25%;
+    animation: ItemEffectLiked6 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked6 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 45%;
+        right: 0;
+    }
+}
+
+.itemEffectLike--blue:nth-child(7) {
+    bottom: 25%;
+    right: 25%;
+    animation: ItemEffectLiked7 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked7 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        bottom: 0%;
+        right: 45%;
+    }
+}
+
+.itemEffectLike--blue:nth-child(8) {
+    bottom: 25%;
+    left: 25%;
+    animation: ItemEffectLiked8 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked8 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        bottom: 45%;
+        left: 0;
+    }
+}
+//phần tử ảo khi double click like
+.heartEffect {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    color: var(--primary);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: EffectHeaderDbClick 1s linear forwards;
+}
+
+@keyframes EffectHeaderDbClick {
+    0% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1.1);
+    }
+    15% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(0.8);
+    }
+    30% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1);
+    }
+    70% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1.8);
+    }
+}

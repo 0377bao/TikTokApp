@@ -13,4 +13,5 @@
 
 .content {
     flex: 1;
+    margin-left: calc((100% - var(--default-layout-width)) / 2 + var(--default-layout-sidebar-width));
 }

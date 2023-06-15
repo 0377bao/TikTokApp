@@ -12,8 +12,29 @@ import {
     CameraIcon,
     CameraActiveIcon,
 } from '~/components/Icons';
+import SuggestedAccounts from '~/components/SuggestedAccount/SuggestedAccounts';
 
 const cx = classNames.bind(styles);
+
+const optionsBrand = [
+    'About',
+    'Newsroom',
+    'Contact',
+    'Careers',
+    'ByteDance',
+    'TikTok for Good',
+    'Advresite',
+    'Deverloper',
+    'Transperance',
+    'TikTok Reward',
+    'TikTok Embeds',
+    'Help',
+    'Safety',
+    'Privacy',
+    'Creator',
+    'Portal',
+    'Comuinity',
+];
 
 function Sidebar() {
     return (
@@ -44,6 +65,18 @@ function Sidebar() {
                     iconActive={<CameraActiveIcon />}
                 />
             </Menu>
+            <SuggestedAccounts label="Suggest Account" />
+            <SuggestedAccounts label="Following Account" />
+            <div className={cx('brand-info')}>
+                {optionsBrand.map((item, index) => (
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    <a key={index} href="#" className={cx('brand-item')}>
+                        {item}
+                    </a>
+                ))}
+            </div>
+
+            <span className={cx('tiktok-brand')}>&copy;2023 TikTok</span>
         </nav>
     );
 }
