@@ -1,5 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ContentItem.module.scss';
 import Image from '../Image';
@@ -10,40 +9,20 @@ import {
     ChatIcon,
     CoppyIcon,
     FacebookIcon,
-    HeartIcon,
     LinkIcon,
     MessengerBgIcon,
-    MutedIcon,
     NoteMusicIcon,
-    PauseIcon,
     PhoneIcon,
-    PlayIcon,
     ShareIcon,
-    UnMutedIcon,
-    UncollectIcon,
 } from '../Icons';
 import Menu from '../Popper/Menu';
-import { useElementOnScreen } from '~/hooks';
 import images from '~/assets/images';
-import textElemts from '~/convertElementToText';
 import handleHightlightContent from '~/handleLogicLocal/handleHightlightContent';
+import GroupVideo from '../GroupVideo';
+import GroupButtonLike from '../GroupButtonLike/GroupButtonLike';
+import GroupButtonFavourite from '../GroupButtonFavourite/GroupButtonFavourite';
 
 const cx = classNames.bind(styles);
-
-const ItemEffectLike = () => {
-    return (
-        <div>
-            <span className={cx('itemEffectLike--red')}></span>
-            <span className={cx('itemEffectLike--red')}></span>
-            <span className={cx('itemEffectLike--red')}></span>
-            <span className={cx('itemEffectLike--red')}></span>
-            <span className={cx('itemEffectLike--blue')}></span>
-            <span className={cx('itemEffectLike--blue')}></span>
-            <span className={cx('itemEffectLike--blue')}></span>
-            <span className={cx('itemEffectLike--blue')}></span>
-        </div>
-    );
-};
 
 const SHARE_ITEMS = [
     {
@@ -74,98 +53,16 @@ const SHARE_ITEMS = [
 ];
 
 function ContentItem({ data, isMuted, setMuted, unMuted }) {
-    const history = useNavigate();
-    const videoRef = useRef();
     const contentPost = useRef();
-    const groupVideoRef = useRef();
     const [isLiked, setIsLiked] = useState(false);
-    const [isFavourite, setIsFavourite] = useState(false);
-    // phần biến cho hiệu ứng clickvideo
-    let clickVideoCount = useRef(0);
-    let clickVideoTimeOut = useRef();
-    let canSingleClickVideo = useRef(true);
-    let canSingleClickVideoTimeout = useRef();
 
-    const handleOnclickOptionVideo = () => {
-        if (!playing) {
-            videoRef.current.play();
-            setPlaying(!playing);
-        } else {
-            videoRef.current.pause();
-            setPlaying(!playing);
-        }
-    };
-
-    const handleClickBtnLike = () => {
-        setIsLiked(!isLiked);
-    };
-
-    const handleClickBtnFavourite = () => {
-        setIsFavourite(!isFavourite);
-    };
-
-    const [playing, setPlaying] = useState(false);
-
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.6,
-    };
-    const isVisibile = useElementOnScreen(options, videoRef);
-
-    useEffect(() => {
-        if (isVisibile) {
-            if (!playing) {
-                videoRef.current.play();
-                setPlaying(true);
-            }
-        } else {
-            if (playing) {
-                videoRef.current.pause();
-                setPlaying(false);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isVisibile]);
-
-    // xử lý khi click vào video 1 hay 2 lần
-
-    const handleDbClickVideo = (e) => {
-        const svg = document.createElement('svg');
-        const classes = cx('heartEffect');
-        const x = e.nativeEvent.offsetX;
-        const y = e.nativeEvent.offsetY;
-        const rotate = Math.floor(Math.random() * 20 - 10);
-        svg.innerHTML = textElemts.heartPath(classes, x, y, rotate);
-
-        groupVideoRef.current.appendChild(svg);
+    // chỉ dùng usecallback cho setlike để tránh render lại video vì video nặng
+    const setLiked = useCallback(() => {
         setIsLiked(true);
+    }, []);
 
-        setTimeout(() => {
-            groupVideoRef.current && groupVideoRef.current.removeChild(svg);
-        }, 10000);
-    };
-
-    const handleClickVideo = (e) => {
-        clickVideoCount.current++;
-        clearTimeout(clickVideoTimeOut.current);
-        if (clickVideoCount.current === 2) {
-            clearTimeout(canSingleClickVideoTimeout.current);
-            handleDbClickVideo(e);
-            clickVideoCount.current = 0;
-            canSingleClickVideo.current = false;
-            canSingleClickVideoTimeout.current = setTimeout(() => {
-                canSingleClickVideo.current = true;
-                clickVideoCount.current = 0;
-            }, 1000);
-        } else {
-            if (clickVideoCount.current === 1 && canSingleClickVideo.current) {
-                clickVideoTimeOut.current = setTimeout(() => {
-                    clickVideoCount.current = 0;
-                    history(`/video/@${data.nickname}/${data.id_video}`);
-                }, 300);
-            }
-        }
+    const unSetLiked = () => {
+        setIsLiked(false);
     };
 
     const onChangeShareItem = (e) => {
@@ -237,53 +134,22 @@ function ContentItem({ data, isMuted, setMuted, unMuted }) {
                     </div>
                 </div>
                 <div className={cx('body')}>
-                    <div className={cx('group-video')} ref={groupVideoRef}>
-                        <video
-                            muted={isMuted}
-                            className={cx('video', 'ispause')}
-                            ref={videoRef}
-                            src={data.video}
-                            loop
-                            onClick={handleClickVideo}
-                            onPlay={() => videoRef.current.classList.replace(cx('ispause'), cx('isplay'))}
-                            onPause={() => videoRef.current.classList.replace(cx('isplay'), cx('ispause'))}
-                        />
-                        {isMuted && <MutedIcon className={cx('mutedicon')} onClick={unMuted} />}
-                        {!isMuted && <UnMutedIcon className={cx('mutedicon')} onClick={setMuted} />}
-
-                        <PauseIcon className={cx('pauseicon')} onClick={handleOnclickOptionVideo} />
-                        <PlayIcon className={cx('playicon')} onClick={handleOnclickOptionVideo} />
-                    </div>
+                    <GroupVideo
+                        data={data}
+                        isMuted={isMuted}
+                        unMuted={unMuted}
+                        setMuted={setMuted}
+                        setLiked={setLiked}
+                    />
                     <div className={cx('actions')}>
-                        <button
-                            className={cx('action-btn', {
-                                liked: isLiked,
-                            })}
-                            onClick={handleClickBtnLike}
-                        >
-                            <div className={cx('action-btn-icon')}>
-                                <HeartIcon />
-                                {isLiked && <ItemEffectLike />}
-                            </div>
-                            <strong>{data.like}</strong>
-                        </button>
+                        <GroupButtonLike value={data.like} liked={isLiked} unSetLiked={unSetLiked} />
                         <button className={cx('action-btn')}>
                             <div className={cx('action-btn-icon')}>
                                 <ChatIcon />
                             </div>
                             <strong>{data.comment}</strong>
                         </button>
-                        <button
-                            className={cx('action-btn', {
-                                favourited: isFavourite,
-                            })}
-                            onClick={handleClickBtnFavourite}
-                        >
-                            <div className={cx('action-btn-icon')}>
-                                <UncollectIcon />
-                            </div>
-                            <strong>{data.favourite}</strong>
-                        </button>
+                        <GroupButtonFavourite value={data.favourite} />
                         <Menu items={SHARE_ITEMS} placement="top-start" offset={[-10, -5]} onChange={onChangeShareItem}>
                             <button className={cx('action-btn')}>
                                 <div className={cx('action-btn-icon')}>

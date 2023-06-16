@@ -1,0 +1,225 @@
+.action-btn {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+
+    & strong {
+        font-family: var(--font-familt);
+        color: rgba(22, 24, 35, 0.75);
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+    }
+
+    &.liked svg {
+        color: var(--primary);
+        animation: EffectLiked linear 0.8s;
+    }
+}
+
+@keyframes EffectLiked {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1.4);
+        color: var(--primary);
+    }
+    80% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.action-btn-icon {
+    position: relative;
+    margin: 8px 0 6px;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color: var(--border-color-main), $alpha: 0.06);
+    border-radius: 50%;
+}
+
+// Hiệu ứng cho phần thả like
+.itemEffectLike--red {
+    pointer-events: none;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--primary);
+}
+
+.itemEffectLike--red:nth-child(1) {
+    top: -2.5px;
+    left: calc(50% - 2.5px);
+    animation: ItemEffectLiked1 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked1 {
+    0% {
+        opacity: 0;
+        transform: translate(-100%, 100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(100%, 100%);
+    }
+}
+
+.itemEffectLike--red:nth-child(2) {
+    top: 50%;
+    right: -2.5px;
+    animation: ItemEffectLiked2 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked2 {
+    0% {
+        opacity: 0;
+        transform: translate(-100%, -100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-100%, 100%);
+    }
+}
+
+.itemEffectLike--red:nth-child(3) {
+    bottom: -2.5px;
+    left: calc(50% - 2.5px);
+    animation: ItemEffectLiked3 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked3 {
+    0% {
+        opacity: 0;
+        transform: translate(100%, -100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-100%, -100%);
+    }
+}
+
+.itemEffectLike--red:nth-child(4) {
+    top: 50%;
+    left: -2.5px;
+    animation: ItemEffectLiked4 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked4 {
+    0% {
+        opacity: 0;
+        transform: translate(100%, 100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(100%, -100%);
+    }
+}
+
+.itemEffectLike--blue {
+    pointer-events: none;
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgb(32, 213, 236);
+}
+
+.itemEffectLike--blue:nth-child(5) {
+    top: 25%;
+    left: 25%;
+    animation: ItemEffectLiked5 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked5 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 0;
+        left: 35%;
+    }
+}
+
+.itemEffectLike--blue:nth-child(6) {
+    top: 25%;
+    right: 25%;
+    animation: ItemEffectLiked6 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked6 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 45%;
+        right: 0;
+    }
+}
+
+.itemEffectLike--blue:nth-child(7) {
+    bottom: 25%;
+    right: 25%;
+    animation: ItemEffectLiked7 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked7 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        bottom: 0%;
+        right: 45%;
+    }
+}
+
+.itemEffectLike--blue:nth-child(8) {
+    bottom: 25%;
+    left: 25%;
+    animation: ItemEffectLiked8 0.4s linear forwards;
+}
+
+@keyframes ItemEffectLiked8 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        bottom: 45%;
+        left: 0;
+    }
+}

@@ -1,0 +1,87 @@
+.group-video {
+    position: relative;
+    max-height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+
+    &.ispause ~ .playicon {
+        display: block;
+    }
+
+    &.isplay ~ .pauseicon {
+        display: block;
+    }
+}
+
+.mutedicon,
+.pauseicon,
+.playicon {
+    padding: 8px;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.mutedicon {
+    right: 12px;
+    bottom: 26px;
+}
+
+.pauseicon,
+.playicon {
+    padding: 10px;
+    left: 12px;
+    bottom: 26px;
+}
+
+.pauseicon {
+    display: none;
+}
+
+.playicon {
+    display: none;
+}
+
+//phần tử ảo khi double click like
+.heartEffect {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    color: var(--primary);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: EffectHeaderDbClick 1s linear forwards;
+}
+
+@keyframes EffectHeaderDbClick {
+    0% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1.1);
+    }
+    15% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(0.8);
+    }
+    30% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1);
+    }
+    70% {
+        opacity: 1;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(var(--rotate)) translate(-50%, -50%) scale(1.8);
+    }
+}
