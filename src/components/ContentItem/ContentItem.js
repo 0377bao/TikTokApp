@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ContentItem.module.scss';
 import Image from '../Image';
@@ -17,10 +17,10 @@ import {
 } from '../Icons';
 import Menu from '../Popper/Menu';
 import images from '~/assets/images';
-import handleHightlightContent from '~/handleLogicLocal/handleHightlightContent';
 import GroupVideo from '../GroupVideo';
 import GroupButtonLike from '../GroupButtonLike/GroupButtonLike';
 import GroupButtonFavourite from '../GroupButtonFavourite/GroupButtonFavourite';
+import PostContent from '../PostContent/PostContent';
 
 const cx = classNames.bind(styles);
 
@@ -53,7 +53,6 @@ const SHARE_ITEMS = [
 ];
 
 function ContentItem({ data, isMuted, setMuted, unMuted }) {
-    const contentPost = useRef();
     const [isLiked, setIsLiked] = useState(false);
 
     // chỉ dùng usecallback cho setlike để tránh render lại video vì video nặng
@@ -69,13 +68,6 @@ function ContentItem({ data, isMuted, setMuted, unMuted }) {
         console.log(e);
     };
 
-    useEffect(() => {
-        const height = contentPost.current.clientHeight;
-        if (height > 90) {
-            contentPost.current.classList.add(cx('ismore'));
-        }
-    }, []);
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('avatar')}>
@@ -89,31 +81,8 @@ function ContentItem({ data, isMuted, setMuted, unMuted }) {
                             {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
                             <h4 className={cx('fullname')}>{data.full_name}</h4>
                         </div>
-                        <div className={cx('content-des')} ref={contentPost}>
-                            <Button
-                                className={cx('content-des--more', 'more')}
-                                onClick={() => contentPost.current.classList.replace(cx('ismore'), cx('isless'))}
-                            >
-                                More
-                            </Button>
-                            <Button
-                                className={cx('content-des--more', 'less')}
-                                onClick={() => contentPost.current.classList.replace(cx('isless'), cx('ismore'))}
-                            >
-                                Less
-                            </Button>
-                            <div className={cx('group-content')}>
-                                {handleHightlightContent(data.content).map((item, index) => {
-                                    return item.startsWith('@') || item.startsWith('#') ? (
-                                        <span key={index} className={cx('contentHighlight')}>
-                                            {item}
-                                        </span>
-                                    ) : (
-                                        item
-                                    );
-                                })}
-                            </div>
-                        </div>
+
+                        <PostContent>{data.content}</PostContent>
 
                         {data.isCapcut && (
                             <div className={cx('capcut')}>

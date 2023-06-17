@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function GroupButtonFavourite({ value }) {
+function GroupButtonFavourite({ value, className, isSingleVideo }) {
     const [isFavourite, setIsFavourite] = useState(false);
 
     const handleClickBtnFavourite = () => {
@@ -15,9 +15,14 @@ function GroupButtonFavourite({ value }) {
 
     return (
         <button
-            className={cx('action-btn', {
-                favourited: isFavourite,
-            })}
+            className={
+                cx('action-btn', {
+                    favourited: isFavourite,
+                    isSingleVideo,
+                }) +
+                ' ' +
+                className
+            }
             onClick={handleClickBtnFavourite}
         >
             <div className={cx('action-btn-icon')}>

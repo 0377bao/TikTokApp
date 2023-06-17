@@ -21,6 +21,22 @@
         color: var(--primary);
         animation: EffectLiked linear 0.8s;
     }
+    &.isSingleVideo {
+        flex-direction: row;
+    }
+
+    &.isSingleVideo .action-btn-icon {
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+        margin: 0;
+        margin-right: 6px;
+    }
+
+    &.isSingleVideo svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 @keyframes EffectLiked {

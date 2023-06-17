@@ -21,7 +21,9 @@ const ItemEffectLike = () => {
     );
 };
 
-function GroupButtonLike({ value, liked, unSetLiked }) {
+const defaultFn = () => {};
+
+function GroupButtonLike({ value, className, liked, unSetLiked = defaultFn, isSingleVideo }) {
     const [isLiked, setIsLiked] = useState();
 
     const handleClickBtnLike = () => {
@@ -41,9 +43,14 @@ function GroupButtonLike({ value, liked, unSetLiked }) {
 
     return (
         <button
-            className={cx('action-btn', {
-                liked: isLiked,
-            })}
+            className={
+                cx('action-btn', {
+                    liked: isLiked,
+                    isSingleVideo,
+                }) +
+                ' ' +
+                className
+            }
             onClick={handleClickBtnLike}
         >
             <div className={cx('action-btn-icon')}>

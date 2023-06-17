@@ -9,7 +9,17 @@ import { useElementOnScreen } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
-function GroupVideo({ data, isMuted, unMuted, setMuted, setLiked }) {
+const defaultFn = () => {};
+
+function GroupVideo({
+    data,
+    isMuted,
+    unMuted,
+    setMuted,
+    setLiked = defaultFn,
+    isSingleVideo = false,
+    setBackgroundSingleVideo = false,
+}) {
     const history = useNavigate();
     const videoRef = useRef();
     const groupVideoRef = useRef();
@@ -55,8 +65,8 @@ function GroupVideo({ data, isMuted, unMuted, setMuted, setLiked }) {
     const handleDbClickVideo = (e) => {
         const svg = document.createElement('svg');
         const classes = cx('heartEffect');
-        const x = e.nativeEvent.offsetX;
-        const y = e.nativeEvent.offsetY;
+        const x = isSingleVideo ? e.nativeEvent.clientX : e.nativeEvent.offsetX;
+        const y = isSingleVideo ? e.nativeEvent.clientY : e.nativeEvent.offsetY;
         const rotate = Math.floor(Math.random() * 20 - 10);
         svg.innerHTML = textElemts.heartPath(classes, x, y, rotate);
 
@@ -65,7 +75,7 @@ function GroupVideo({ data, isMuted, unMuted, setMuted, setLiked }) {
 
         setTimeout(() => {
             groupVideoRef.current && groupVideoRef.current.removeChild(svg);
-        }, 10000);
+        }, 1000);
     };
 
     const handleClickVideo = (e) => {
@@ -84,14 +94,35 @@ function GroupVideo({ data, isMuted, unMuted, setMuted, setLiked }) {
             if (clickVideoCount.current === 1 && canSingleClickVideo.current) {
                 clickVideoTimeOut.current = setTimeout(() => {
                     clickVideoCount.current = 0;
-                    history(`/video/@${data.nickname}/${data.id_video}`);
+                    if (isSingleVideo) {
+                        handleOnclickOptionVideo();
+                    } else {
+                        history(`/video/@${data.nickname}/${data.id_video}`);
+                    }
                 }, 300);
             }
         }
     };
 
+    const handleLoadedMedata = () => {
+        if (setBackgroundSingleVideo && videoRef) {
+            let interval = setInterval(() => {
+                var canvas = document.createElement('canvas');
+                canvas.width = videoRef.current.clientWidth;
+                canvas.height = videoRef.current.videoHeight;
+                var context = canvas.getContext('2d');
+                context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+                var dataURL = canvas.toDataURL();
+                setBackgroundSingleVideo(dataURL);
+                if (videoRef.current.currentTime > 0.1) {
+                    clearInterval(interval);
+                }
+            }, 1);
+        }
+    };
+
     return (
-        <div className={cx('group-video')} ref={groupVideoRef}>
+        <div className={cx('group-video', { isSingleVideo })} ref={groupVideoRef}>
             <video
                 muted={isMuted}
                 className={cx('video', 'ispause')}
@@ -101,12 +132,14 @@ function GroupVideo({ data, isMuted, unMuted, setMuted, setLiked }) {
                 onClick={handleClickVideo}
                 onPlay={() => videoRef.current.classList.replace(cx('ispause'), cx('isplay'))}
                 onPause={() => videoRef.current.classList.replace(cx('isplay'), cx('ispause'))}
+                onCanPlay={handleLoadedMedata}
             />
             {isMuted && <MutedIcon className={cx('mutedicon')} onClick={unMuted} />}
             {!isMuted && <UnMutedIcon className={cx('mutedicon')} onClick={setMuted} />}
 
             <PauseIcon className={cx('pauseicon')} onClick={handleOnclickOptionVideo} />
             <PlayIcon className={cx('playicon')} onClick={handleOnclickOptionVideo} />
+            {isSingleVideo && <PlayIcon className={cx('playState')} />}
         </div>
     );
 }

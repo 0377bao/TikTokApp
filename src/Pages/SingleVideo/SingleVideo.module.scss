@@ -1,0 +1,350 @@
+.wrapper {
+    display: flex;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+// phần container chứa video và một số btn action
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex: 1 0 600px;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(20px);
+    pointer-events: none;
+}
+
+.action {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 95px;
+    transform: translateY(-50%);
+
+    & .up-btn,
+    & .down-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(84, 84, 84, 0.5);
+
+        &:hover {
+            background-color: rgba(37, 37, 37, 0.6);
+        }
+    }
+
+    & .up-btn {
+        transform: rotate(-90deg);
+    }
+
+    & .down-btn {
+        transform: rotate(90deg);
+    }
+}
+
+.close-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(84, 84, 84, 0.5);
+
+    &:hover {
+        background-color: rgba(37, 37, 37, 0.6);
+    }
+}
+
+.logo-tiktok {
+    position: absolute;
+    top: 20px;
+    left: 68px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+// phần content chứa nội dung
+.content {
+    flex: 0 0 544px;
+    width: 544px;
+    display: flex;
+    flex-direction: column;
+    padding: 42px 0px 0px;
+}
+
+.info {
+}
+
+.info-brand {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 32px 0;
+    margin-bottom: 20px;
+}
+
+.info-author {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.info-author-img {
+    margin-right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.info-author-des {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-author-name {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    & span:nth-child(1) {
+        font-family: var(--font-familt-support);
+    }
+
+    & span {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .check {
+        font-size: 1.4rem;
+        margin-left: 4px;
+        color: rgb(32, 213, 236);
+    }
+
+    &:hover span:nth-child(1) {
+        text-decoration: underline;
+    }
+}
+
+.info-author-time {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.info-btnFl {
+    & button {
+        padding: 9px 28px;
+        font-weight: 600 !important;
+    }
+}
+
+.info-contentpost {
+    padding: 0 32px;
+}
+
+.capcut {
+    display: flex;
+    align-items: center;
+    height: 26px;
+    padding: 0 32px;
+    margin-top: 4px;
+
+    .capcut-logo {
+        width: 24px;
+        height: 24px;
+        object-fit: cover;
+    }
+
+    .capcut-content {
+        cursor: pointer;
+        font-weight: 700;
+        background-color: rgb(241, 241, 241);
+        padding-left: 8px;
+        padding-right: 8px;
+        border-radius: 2px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-left: 6px;
+    }
+
+    .capcut-content:hover {
+        text-decoration: underline;
+    }
+}
+
+.info-sound {
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    -webkit-transition: color 250ms;
+    transition: color 250ms;
+    text-decoration: none;
+
+    &:hover .name-sound {
+        text-decoration: underline;
+    }
+}
+
+.sound-icon {
+    margin-right: 4px;
+}
+
+.name-sound {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+}
+.action-btn {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    & strong {
+        font-family: var(--font-familt);
+        color: rgba(22, 24, 35, 0.75);
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+    }
+
+    &.isSingleVideo svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.action-btn-icon {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    margin-right: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color: var(--border-color-main), $alpha: 0.06);
+    border-radius: 50%;
+}
+
+.action-btn + .action-btn {
+    margin-left: 20px;
+}
+
+.info-action {
+    padding: 13px 32px;
+}
+
+.info-action-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-action-left {
+    display: flex;
+    align-items: center;
+}
+
+.info-action-right {
+    & svg {
+        cursor: pointer;
+        margin-right: 8px;
+    }
+}
+
+.share-icon {
+    padding: 4px;
+}
+
+.info-action-link {
+    margin-top: 16px;
+}
+
+.info-action-link {
+    display: flex;
+    background-color: rgba($color: var(--border-color-main), $alpha: 0.06);
+    color: rgba(22, 24, 35, 0.75);
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.info-action-linktext {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1;
+    padding: 8px 0px 5px 12px;
+}
+
+.info-action-linkbtn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: rgb(22, 24, 35);
+    font-weight: 700;
+    padding: 7px 18px;
+
+    &:hover {
+        background-color: #f8f8f8;
+    }
+}
+
+//comment input
+.comment {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.comment-list {
+    flex: 1;
+    background-color: rgb(248, 248, 248);
+    border-top: 1px solid rgba(22, 24, 35, 0.2);
+    border-bottom: 1px solid rgba(22, 24, 35, 0.2);
+}
+
+.comment-input {
+    padding: 21px 32px;
+}
