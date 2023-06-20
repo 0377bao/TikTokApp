@@ -1,0 +1,157 @@
+.comment-list {
+    margin-bottom: 16px;
+}
+
+.comment-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+
+    &.isFeedback {
+        margin-left: 52px;
+    }
+
+    &.isFeedback .comment-item-avt {
+        & img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    &:hover .comment-item-more {
+        display: block;
+    }
+}
+
+.comment-item-avt {
+    margin-right: 12px;
+
+    & img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+}
+
+.comment-item-content {
+    flex: 1;
+}
+
+.comment-item-brand {
+    display: flex;
+    align-items: center;
+}
+
+.comment-item-name {
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.comment-item-check {
+    font-size: 1.4rem;
+    margin-left: 4px;
+    color: rgb(32, 213, 236);
+}
+
+.comment-item-middot {
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0 4px;
+}
+
+.comment-item-creator {
+    font-weight: 700;
+    font-size: 16px;
+    color: rgb(254, 44, 85);
+}
+
+.comment-item-title {
+    font-size: 16px;
+    line-height: 22px;
+    white-space: pre-line;
+    word-break: break-word;
+    margin-bottom: 6px;
+}
+
+.comment-item-des {
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.comment-item-time {
+}
+
+.comment-item-btn {
+    margin-left: 24px;
+    cursor: pointer;
+}
+
+.comment-item-info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 18px;
+    align-items: center;
+}
+
+.comment-item-more {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    cursor: pointer;
+    display: none;
+}
+
+.comment-item-like {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    color: rgba(22, 24, 35, 0.5);
+    cursor: pointer;
+    & span {
+        margin-top: 5px;
+        font-size: 12px;
+        line-height: 17px;
+    }
+}
+
+.btn-hide,
+.btn-show-all {
+    margin-left: 52px;
+    display: flex;
+    align-items: center;
+    color: rgba(22, 24, 35, 0.5);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.btn-arrow-up {
+    transform: rotate(90deg);
+    margin-left: 6px;
+}
+
+.comment-feedback {
+}
+
+.btn-hide {
+    justify-content: flex-end;
+}
+
+.btn-arrow-down {
+    transform: rotate(-90deg);
+    margin-left: 6px;
+}

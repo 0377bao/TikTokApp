@@ -10,33 +10,15 @@ const cx = classNames.bind(styles);
 
 function CommentInput() {
     const [value, setValue] = useState('');
-    const [rowInput, setRowInput] = useState(0);
+    const [rowInput, setRowInput] = useState(17);
     const btnPostRef = useRef();
     const inputRef = useRef();
+    const inputRefHeight = useRef();
 
     const handleOnchangeInput = (e) => {
         const valueChange = e.target.value;
         if (valueChange.length <= 150) {
             setValue(valueChange);
-        }
-        const span = document.createElement('span');
-        span.style.visibility = 'hidden';
-        span.style.position = 'absolute';
-        span.style.whiteSpace = 'nowrap';
-        span.style.fontSize = '1.4rem';
-        span.style.fontWeight = '400';
-        span.innerText = valueChange;
-
-        document.body.appendChild(span);
-
-        const width = span.clientWidth;
-        const widthInput = inputRef.current.clientWidth - 21;
-        const widthTimes = Math.floor(width / (widthInput + 1));
-        document.body.removeChild(span);
-
-        if (widthTimes != rowInput) {
-            inputRef.current.style.height = 17 * (widthTimes + 1) + 'px';
-            setRowInput(widthTimes);
         }
     };
 
@@ -45,6 +27,13 @@ function CommentInput() {
             btnPostRef.current.classList.add(cx('active'));
         } else {
             btnPostRef.current.classList.remove(cx('active'));
+        }
+
+        const heightValue = inputRefHeight.current.scrollHeight;
+
+        if (heightValue != rowInput) {
+            inputRef.current.style.height = heightValue + 'px';
+            setRowInput(heightValue);
         }
     }, [value]);
 
@@ -60,7 +49,14 @@ function CommentInput() {
                         value={value}
                         onChange={handleOnchangeInput}
                     ></textarea>
-                    {rowInput > 0 && <span className={cx('limit-text')}>{value.length}/150</span>}
+                    <textarea
+                        ref={inputRefHeight}
+                        rows="1"
+                        className={cx('input-area', 'input-height')}
+                        value={value}
+                        onChange={() => {}}
+                    ></textarea>
+                    {rowInput > 17 && <span className={cx('limit-text')}>{value.length}/150</span>}
                 </div>
                 <TippyTooltip content='"@" a user to tag them in your comments' animation="scale">
                     <span style={{ height: '40px' }}>

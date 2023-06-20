@@ -4,7 +4,6 @@ import styles from './GroupVideo.module.scss';
 import { MutedIcon, PauseIcon, PlayIcon, UnMutedIcon } from '../Icons';
 import { memo, useEffect, useRef, useState } from 'react';
 import textElemts from '~/convertElementToText';
-import { useNavigate } from 'react-router-dom';
 import { useElementOnScreen } from '~/hooks';
 
 const cx = classNames.bind(styles);
@@ -13,14 +12,16 @@ const defaultFn = () => {};
 
 function GroupVideo({
     data,
+    index,
     isMuted,
     unMuted,
     setMuted,
     setLiked = defaultFn,
     isSingleVideo = false,
     setBackgroundSingleVideo = false,
+    setIndexSingleVideo,
+    thisVideoIsSingleVideo,
 }) {
-    const history = useNavigate();
     const videoRef = useRef();
     const groupVideoRef = useRef();
     const [playing, setPlaying] = useState(false);
@@ -48,7 +49,7 @@ function GroupVideo({
     const isVisibile = useElementOnScreen(options, videoRef);
 
     useEffect(() => {
-        if (isVisibile) {
+        if (isVisibile && !thisVideoIsSingleVideo) {
             if (!playing) {
                 videoRef.current.play();
                 setPlaying(true);
@@ -60,7 +61,14 @@ function GroupVideo({
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isVisibile]);
+    }, [isVisibile, thisVideoIsSingleVideo]);
+
+    useEffect(() => {
+        if (thisVideoIsSingleVideo) {
+            videoRef.current.pause();
+            setPlaying(false);
+        }
+    }, [thisVideoIsSingleVideo]);
 
     const handleDbClickVideo = (e) => {
         const svg = document.createElement('svg');
@@ -97,7 +105,7 @@ function GroupVideo({
                     if (isSingleVideo) {
                         handleOnclickOptionVideo();
                     } else {
-                        history(`/video/@${data.nickname}/${data.id_video}`);
+                        setIndexSingleVideo(index);
                     }
                 }, 300);
             }
@@ -105,7 +113,7 @@ function GroupVideo({
     };
 
     const handleLoadedMedata = () => {
-        if (setBackgroundSingleVideo && videoRef) {
+        if (setBackgroundSingleVideo && videoRef.current) {
             let interval = setInterval(() => {
                 var canvas = document.createElement('canvas');
                 canvas.width = videoRef.current.clientWidth;
@@ -125,6 +133,7 @@ function GroupVideo({
         <div className={cx('group-video', { isSingleVideo })} ref={groupVideoRef}>
             <video
                 muted={isMuted}
+                autoPlay
                 className={cx('video', 'ispause')}
                 ref={videoRef}
                 src={data.video}

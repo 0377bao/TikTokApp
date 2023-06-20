@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './GroupButtonFavourite.module.scss';
 import { UncollectIcon } from '../Icons';
 import { useState } from 'react';
+import { formatNumber } from '~/handleLogicLocal';
 
 const cx = classNames.bind(styles);
 
@@ -28,13 +29,13 @@ function GroupButtonFavourite({ value, className, isSingleVideo }) {
             <div className={cx('action-btn-icon')}>
                 <UncollectIcon />
             </div>
-            <strong>{value}</strong>
+            <strong>{formatNumber(value)}</strong>
         </button>
     );
 }
 
 GroupButtonFavourite.propTypes = {
-    value: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
 };
 
 export default GroupButtonFavourite;

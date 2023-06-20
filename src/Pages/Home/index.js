@@ -1,1 +1,1 @@
-export { default } from './Home';
+export { default, dataSingleVideo } from './Home';

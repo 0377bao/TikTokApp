@@ -29,10 +29,55 @@ import PostContent from '~/components/PostContent/PostContent';
 import GroupButtonLike from '~/components/GroupButtonLike/GroupButtonLike';
 import GroupButtonFavourite from '~/components/GroupButtonFavourite/GroupButtonFavourite';
 import CommentInput from '~/components/CommentInput/CommentInput';
+import CommentList from '~/components/CommentList/CommentList';
+import { formatNumber } from '~/handleLogicLocal';
 
 const cx = classNames.bind(styles);
 
-function SingleVideo() {
+const fakeCommentList = [
+    {
+        id: 1,
+        avt: images.avtUser,
+        nickname: 'Quốc Bảo',
+        tick: true,
+        creator: true,
+        title: 'Chưa có dữ liệu em fix tạm vậy được không anh @SơnĐặng',
+        timeago: '10m ago',
+        like: 24,
+        feedback: [
+            {
+                avt: 'https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png',
+                nickname: 'Sơn_Đặng',
+                tick: true,
+                creator: false,
+                title: 'Oke thoải mái em',
+                timeago: '5m ago',
+                like: 12,
+            },
+            {
+                avt: images.avtUser,
+                nickname: 'Quốc Bảo',
+                tick: true,
+                creator: true,
+                title: 'Oke anh',
+                timeago: '1m ago',
+                like: 2,
+            },
+        ],
+    },
+    {
+        id: 2,
+        avt: 'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/603bf6eebca1663f633ef3683939eedb~c5_100x100.jpeg?x-expires=1687240800&x-signature=VRL3SamVkr322vE4ADKbyTq3JSo%3D',
+        nickname: '_puyenh',
+        tick: false,
+        creator: false,
+        title: 'Xinh qua',
+        timeago: '1h ago',
+        like: 10,
+    },
+];
+
+function SingleVideo({ data, isStart, isEnd, setIndexSingleVideo, index }) {
     const [isMuted, setIsMuted] = useState(true);
     const backGroundVideoRef = useRef();
     const [isLiked, setIsLiked] = useState(false);
@@ -63,7 +108,7 @@ function SingleVideo() {
             <div ref={backGroundVideoRef} className={cx('container')}>
                 <div className={cx('background')}></div>
                 <GroupVideo
-                    data={{ video: videos.video3 }}
+                    data={data}
                     isMuted={isMuted}
                     setMuted={setMuted}
                     unMuted={unMuted}
@@ -72,16 +117,32 @@ function SingleVideo() {
                     setBackgroundSingleVideo={setBackgroundSingleVideo}
                 />
                 <div className={cx('action')}>
-                    <Link to="/" className={cx('up-btn')}>
-                        <ArrowIcon />
-                    </Link>
-                    <Link to="/" className={cx('down-btn')}>
-                        <ArrowIcon />
-                    </Link>
+                    {!isStart && (
+                        <a
+                            href={`#content-item-id${index}`}
+                            className={cx('up-btn')}
+                            onClick={() => {
+                                setIndexSingleVideo((e) => e - 1);
+                            }}
+                        >
+                            <ArrowIcon />
+                        </a>
+                    )}
+                    {!isEnd && (
+                        <a
+                            href={`#content-item-id${index}`}
+                            className={cx('down-btn')}
+                            onClick={() => {
+                                setIndexSingleVideo((e) => e + 1);
+                            }}
+                        >
+                            <ArrowIcon />
+                        </a>
+                    )}
                 </div>
                 <a
                     onClick={() => {
-                        window.history.back();
+                        setIndexSingleVideo(-1);
                     }}
                     className={cx('close-btn')}
                 >
@@ -94,38 +155,40 @@ function SingleVideo() {
                 <div className={cx('info')}>
                     <div className={cx('info-brand')}>
                         <div className={cx('info-author')}>
-                            <Image className={cx('info-author-img')} src={images.avtUser} />
+                            <Image className={cx('info-author-img')} src={data.avatar} />
                             <div className={cx('info-author-des')}>
                                 <div className={cx('info-author-name')}>
-                                    <span>hynstyle</span>
-                                    <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
+                                    <span>{data.nickname}</span>
+                                    {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
                                 </div>
                                 <div className={cx('info-author-time')}>
-                                    <span>Huynh quoc bao</span>
+                                    <span>{data.full_name}</span>
                                     <span style={{ margin: '0px 4px' }}>&middot;</span>
                                     <p>4-27</p>
                                 </div>
                             </div>
                         </div>
                         <div className={cx('info-btnFl')}>
-                            <Button outline>Follow</Button>
+                            {data.following ? <Button following>Following</Button> : <Button outline>Follow</Button>}
                         </div>
                     </div>
 
                     <div className={cx('info-contentpost')}>
-                        <PostContent>nhạc ngắn theee #vacaiket #nhanvatchinh #xuhuong2023 #fyp</PostContent>
+                        <PostContent>{data.content}</PostContent>
                     </div>
 
-                    {/* <div className={cx('info-capcut')}>
-                        <div className={cx('capcut')}>
-                            <img className={cx('capcut-logo')} src={images.capCutLogo} alt="Logo" />
-                            <p className={cx('capcut-content')}>CapCut | Edit like a pro</p>
+                    {data.isCapcut && (
+                        <div className={cx('info-capcut')}>
+                            <div className={cx('capcut')}>
+                                <img className={cx('capcut-logo')} src={images.capCutLogo} alt="Logo" />
+                                <p className={cx('capcut-content')}>CapCut | Edit like a pro</p>
+                            </div>
                         </div>
-                    </div> */}
+                    )}
 
                     <div className={cx('info-sound')}>
                         <NoteMusicIcon className={cx('sound-icon')} width="16" height="16" />
-                        <span className={cx('name-sound')}>Nhạc nền - Quốc Bảo</span>
+                        <span className={cx('name-sound')}>{data.sound}</span>
                     </div>
 
                     <div className={cx('info-action')}>
@@ -133,7 +196,7 @@ function SingleVideo() {
                             <div className={cx('info-action-left')}>
                                 <GroupButtonLike
                                     className={cx('action-btn')}
-                                    value="58.5k"
+                                    value={data.like}
                                     isSingleVideo
                                     liked={isLiked}
                                     unSetLiked={unSetLiked}
@@ -142,9 +205,13 @@ function SingleVideo() {
                                     <div className={cx('action-btn-icon')}>
                                         <ChatIcon />
                                     </div>
-                                    <strong>15</strong>
+                                    <strong>{formatNumber(data.comment)}</strong>
                                 </button>
-                                <GroupButtonFavourite className={cx('action-btn')} value="2016" isSingleVideo />
+                                <GroupButtonFavourite
+                                    className={cx('action-btn')}
+                                    value={data.favourite}
+                                    isSingleVideo
+                                />
                             </div>
                             <div className={cx('info-action-right')}>
                                 <TippyTooltip content="Embed" animation="scale">
@@ -179,7 +246,11 @@ function SingleVideo() {
                     </div>
                 </div>
                 <div className={cx('comment')}>
-                    <div className={cx('comment-list')}></div>
+                    <div className={cx('comment-list')}>
+                        {fakeCommentList.map((item) => (
+                            <CommentList key={item.id} comment={item} />
+                        ))}
+                    </div>
                     <div className={cx('comment-input')}>
                         <CommentInput />
                     </div>

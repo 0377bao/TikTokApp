@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './GroupButtonLike.module.scss';
 import { useEffect, useState } from 'react';
 import { HeartIcon } from '../Icons';
+import { formatNumber } from '~/handleLogicLocal';
 
 const cx = classNames.bind(styles);
 
@@ -57,13 +58,13 @@ function GroupButtonLike({ value, className, liked, unSetLiked = defaultFn, isSi
                 <HeartIcon />
                 {isLiked && <ItemEffectLike />}
             </div>
-            <strong>{value}</strong>
+            <strong>{formatNumber(value)}</strong>
         </button>
     );
 }
 
 GroupButtonLike.propTypes = {
-    value: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
 };
 
 export default GroupButtonLike;

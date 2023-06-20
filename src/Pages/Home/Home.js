@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
-import { useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import styles from './Home.module.scss';
 import ContentItem from '~/components/ContentItem/ContentItem';
 import videos from '~/assets/videos';
+import SingleVideo from '../SingleVideo/SingleVideo';
 
 const cx = classNames.bind(styles);
 
@@ -14,12 +15,13 @@ const LIST_VIDEO = [
         tick: true,
         content: 'Hơi mệt 😢 @nguyenlinh',
         sound: 'Nhạc nền - Huỳnh Quốc Bảo',
-        like: '37.2k',
-        comment: '1000',
-        favourite: '200',
-        share: '50',
+        like: 1151000,
+        comment: 10100,
+        favourite: 2000,
+        share: 50,
         isCapcut: true,
         video: videos.video1,
+        following: true,
         id_video: 1,
     },
     {
@@ -29,10 +31,10 @@ const LIST_VIDEO = [
         tick: false,
         content: 'Oke anh #xuhuong',
         sound: 'Nhạc nền - em Ngẹc 🤍',
-        like: '10.2k',
-        comment: '800',
-        favourite: '200',
-        share: '50',
+        like: 10200,
+        comment: 800,
+        favourite: 200,
+        share: 50,
         video: videos.video3,
         id_video: 2,
     },
@@ -43,10 +45,10 @@ const LIST_VIDEO = [
         tick: false,
         content: 'Biến hình kiểu tóc con bạch tuộc cho ido😂 #xuhuong',
         sound: 'Nhạc nền - Huỳnh Quốc Bảo',
-        like: '12.2k',
-        comment: '1000',
-        favourite: '200',
-        share: '50',
+        like: 12200,
+        comment: 1000,
+        favourite: 200,
+        share: 50,
         video: videos.video2,
         id_video: 3,
     },
@@ -58,10 +60,10 @@ const LIST_VIDEO = [
         content:
             '“Nếu anh ấy không quan tâm bạn thì bạn cũng đừng buồn, vì nếu bạn buồn thì nhiều anh khác lại không vui. #xuhuong',
         sound: 'Nhạc nền - Thợ lặng Tcong',
-        like: '19.5k',
-        comment: '42',
-        favourite: '200',
-        share: '50',
+        like: 19500,
+        comment: 42,
+        favourite: 200,
+        share: 50,
         isCapcut: true,
         video: videos.video4,
         id_video: 4,
@@ -73,10 +75,10 @@ const LIST_VIDEO = [
         tick: false,
         content: 'Đã cố gắng hớt sức 🥺 #xuhuong',
         sound: 'Nhạc nền - Trung Phú',
-        like: '5890',
-        comment: '1000',
-        favourite: '200',
-        share: '50',
+        like: 5890,
+        comment: 1000,
+        favourite: 200,
+        share: 50,
         isCapcut: true,
         video: videos.video5,
         id_video: 5,
@@ -88,10 +90,10 @@ const LIST_VIDEO = [
         tick: false,
         content: 'Slay slay quá✨ @hi #viral #xuhuong #fypシ #fashion #moingaymotoutfit #phoidoxinh',
         sound: 'nhạc nền - 𝓩𝓮𝓵𝓭𝓪 🌷',
-        like: '11.4k',
-        comment: '28',
-        favourite: '925',
-        share: '10',
+        like: 11400,
+        comment: 28,
+        favourite: 925,
+        share: 10,
         isCapcut: false,
         video: videos.video6,
         id_video: 6,
@@ -103,18 +105,21 @@ const LIST_VIDEO = [
         tick: false,
         content: 'Đêm khuya bên ngoài nạnh nắm #fyp #xuhuongtiktok',
         sound: 'nhạc nền - Trần Văn Huy 🐉 🔧',
-        like: '106.4k',
-        comment: '329',
-        favourite: '3980',
-        share: '10',
+        like: 106400,
+        comment: 329,
+        favourite: 3980,
+        share: 10,
         isCapcut: false,
         video: videos.video7,
         id_video: 7,
     },
 ];
 
+const dataSingleVideo = createContext();
+
 function Home() {
     const [isMuted, setIsMuted] = useState(true);
+    const [indexSingleVideo, setIndexSingleVideo] = useState(-1);
 
     const setMuted = useCallback(() => {
         setIsMuted(true);
@@ -129,12 +134,33 @@ function Home() {
     }, []);
 
     return (
-        <div className={cx('wrapper')}>
-            {LIST_VIDEO.map((item, index) => (
-                <ContentItem key={index} data={item} isMuted={isMuted} setMuted={setMuted} unMuted={unMuted} />
-            ))}
-        </div>
+        <dataSingleVideo.Provider value={1}>
+            <div className={cx('wrapper')}>
+                {LIST_VIDEO.map((item, index) => (
+                    <ContentItem
+                        key={index}
+                        data={item}
+                        index={index}
+                        isMuted={isMuted}
+                        setMuted={setMuted}
+                        unMuted={unMuted}
+                        setIndexSingleVideo={setIndexSingleVideo}
+                        thisVideoIsSingleVideo={indexSingleVideo !== -1}
+                    />
+                ))}
+                {indexSingleVideo !== -1 && (
+                    <SingleVideo
+                        data={LIST_VIDEO[indexSingleVideo]}
+                        isStart={indexSingleVideo === 0}
+                        isEnd={indexSingleVideo + 1 === LIST_VIDEO.length}
+                        setIndexSingleVideo={setIndexSingleVideo}
+                        index={indexSingleVideo}
+                    />
+                )}
+            </div>
+        </dataSingleVideo.Provider>
     );
 }
 
+export { dataSingleVideo };
 export default Home;

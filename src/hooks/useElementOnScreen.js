@@ -3,7 +3,7 @@ const useElementOnScreen = (options, targetRef) => {
     const [isVisibile, setIsVisible] = useState();
     const callbackFunction = (entries) => {
         const [entry] = entries; //const entry = entries[0]
-        setIsVisible(entry.isIntersecting);
+        setIsVisible(entry.isIntersecting && getComputedStyle(entry.target).zIndex === 'auto');
     };
     const optionsMemo = useMemo(() => {
         return options;

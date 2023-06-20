@@ -21,6 +21,8 @@ import GroupVideo from '../GroupVideo';
 import GroupButtonLike from '../GroupButtonLike/GroupButtonLike';
 import GroupButtonFavourite from '../GroupButtonFavourite/GroupButtonFavourite';
 import PostContent from '../PostContent/PostContent';
+import { formatNumber } from '~/handleLogicLocal';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -52,8 +54,9 @@ const SHARE_ITEMS = [
     },
 ];
 
-function ContentItem({ data, isMuted, setMuted, unMuted }) {
+function ContentItem({ data, index, isMuted, setMuted, unMuted, setIndexSingleVideo, thisVideoIsSingleVideo }) {
     const [isLiked, setIsLiked] = useState(false);
+    const history = useNavigate();
 
     // chỉ dùng usecallback cho setlike để tránh render lại video vì video nặng
     const setLiked = useCallback(() => {
@@ -69,7 +72,7 @@ function ContentItem({ data, isMuted, setMuted, unMuted }) {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper')} id={`content-item-id${index}`}>
             <div className={cx('avatar')}>
                 <Image src={data.avatar} alt="Avatar" className={cx('avt-img')} />
             </div>
@@ -97,26 +100,40 @@ function ContentItem({ data, isMuted, setMuted, unMuted }) {
                         </div>
                     </div>
                     <div className={cx('button')}>
-                        <Button className={cx('button-btn')} outline>
-                            Follow
-                        </Button>
+                        {data.following ? (
+                            <Button className={cx('button-btn')} following>
+                                Following
+                            </Button>
+                        ) : (
+                            <Button className={cx('button-btn')} outline>
+                                Follow
+                            </Button>
+                        )}
                     </div>
                 </div>
                 <div className={cx('body')}>
                     <GroupVideo
                         data={data}
+                        index={index}
                         isMuted={isMuted}
                         unMuted={unMuted}
                         setMuted={setMuted}
                         setLiked={setLiked}
+                        setIndexSingleVideo={setIndexSingleVideo}
+                        thisVideoIsSingleVideo={thisVideoIsSingleVideo}
                     />
                     <div className={cx('actions')}>
                         <GroupButtonLike value={data.like} liked={isLiked} unSetLiked={unSetLiked} />
-                        <button className={cx('action-btn')}>
+                        <button
+                            className={cx('action-btn')}
+                            onClick={() => {
+                                setIndexSingleVideo(index);
+                            }}
+                        >
                             <div className={cx('action-btn-icon')}>
                                 <ChatIcon />
                             </div>
-                            <strong>{data.comment}</strong>
+                            <strong>{formatNumber(data.comment)}</strong>
                         </button>
                         <GroupButtonFavourite value={data.favourite} />
                         <Menu items={SHARE_ITEMS} placement="top-start" offset={[-10, -5]} onChange={onChangeShareItem}>

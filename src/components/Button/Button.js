@@ -15,6 +15,7 @@ function Button({
     text = false,
     disabled = false,
     rounded = false,
+    following = false,
     className,
     children,
     leftIcon,
@@ -52,6 +53,7 @@ function Button({
         large,
         disabled,
         rounded,
+        following,
     });
     return (
         <Comp className={classes} {...props}>
