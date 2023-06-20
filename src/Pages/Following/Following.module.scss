@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // height: calc(100vh - var(--default-layout-header-height));
+    overflow-y: scroll;
+    //Thêm thuộc tính cho phần tử tự động snap khi scroll ở phần cha
+    // scroll-snap-type: y mandatory;
+    //Thêm phần này cho phần tử con
+    // scroll-snap-align: center;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}

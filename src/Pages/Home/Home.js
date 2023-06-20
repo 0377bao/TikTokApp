@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { createContext, useCallback, useEffect, useState } from 'react';
 import styles from './Home.module.scss';
 import ContentItem from '~/components/ContentItem/ContentItem';
-import videos from '~/assets/videos';
+import videos from '~/assets/videos/homes';
 import SingleVideo from '../SingleVideo/SingleVideo';
 
 const cx = classNames.bind(styles);

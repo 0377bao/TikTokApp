@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +9,6 @@ import 'tippy.js/animations/scale.css';
 
 import styles from './SingleVideo.module.scss';
 import GroupVideo from '~/components/GroupVideo';
-import videos from '~/assets/videos';
 import Button from '~/components/Button';
 import {
     ArrowIcon,
