@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TikTokApp/static/css/main.a971a03f.css",
-    "main.js": "/TikTokApp/static/js/main.7be3c4dd.js",
+    "main.js": "/TikTokApp/static/js/main.964d2b02.js",
     "static/js/787.fe00223f.chunk.js": "/TikTokApp/static/js/787.fe00223f.chunk.js",
     "static/media/video1.mp4": "/TikTokApp/static/media/video1.8b4b344f630975963912.mp4",
     "static/media/video2.mp4": "/TikTokApp/static/media/video2.9e5e20a1cfb8f9acb349.mp4",
@@ -18,11 +18,11 @@
     "static/media/logo.svg": "/TikTokApp/static/media/logo.1197cbca6c30adc1f07df639e5e3ebd5.svg",
     "index.html": "/TikTokApp/index.html",
     "main.a971a03f.css.map": "/TikTokApp/static/css/main.a971a03f.css.map",
-    "main.7be3c4dd.js.map": "/TikTokApp/static/js/main.7be3c4dd.js.map",
+    "main.964d2b02.js.map": "/TikTokApp/static/js/main.964d2b02.js.map",
     "787.fe00223f.chunk.js.map": "/TikTokApp/static/js/787.fe00223f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a971a03f.css",
-    "static/js/main.7be3c4dd.js"
+    "static/js/main.964d2b02.js"
   ]
 }
