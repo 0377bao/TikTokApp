@@ -1,10 +1,10 @@
 const routes = {
-    root: '/',
-    following: '/following',
-    profile: '/profile/:nickname',
-    live: '/live',
-    explore: '/explore',
-    singlevideo: '/video/*',
+    root: 'TikTokApp/',
+    following: 'TikTokApp/following',
+    profile: 'TikTokApp/profile/:nickname',
+    live: 'TikTokApp/live',
+    explore: 'TikTokApp/explore',
+    singlevideo: 'TikTokApp/video/*',
 };
 
 export default routes;
