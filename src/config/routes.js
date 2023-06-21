@@ -1,5 +1,5 @@
 const routes = {
-    root: '/',
+    root: '/TikTokApp/',
     following: '/following',
     profile: '/profile/:nickname',
     live: '/live',
